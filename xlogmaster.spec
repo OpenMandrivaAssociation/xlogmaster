@@ -10,6 +10,7 @@ Source0:	ftp://ftp.gnu.org/xlogmaster/%{name}-%{version}.tar.bz2
 Source1:	%{name}-%{version}-extra.tar.bz2
 Source2:	%{name}-icons.tar.bz2
 Patch0:		%{name}-gcc3.2.fix.patch.bz2
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 BuildRequires:	libgtk+-devel
 License:	GPL
 URL:		http://www.gnu.org/software/xlogmaster/
