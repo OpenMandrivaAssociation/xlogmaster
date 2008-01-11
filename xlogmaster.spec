@@ -42,19 +42,24 @@ rm -rf $RPM_BUILD_ROOT
 
 %makeinstall XLM_LIB=%{buildroot}%{_datadir}/xlogmaster XLM_DB=%{buildroot}%{_localstatedir}/xlogmaster
 
-install -d %{buildroot}%{_menudir}
-cat << EOF > %{buildroot}%{_menudir}/%{name}
-?package(%{name}): needs="x11" \
-		   icon="%{name}.png" \
-		   section="Applications/Monitoring" \
-		   title="Xlogmaster" \
-		   longtitle="Logfile viewer" \
-		   command="%{name} -terse"
-#?package(%{name}): needs="x11" \
-#		    section="Documentation/Websites" \
-#		    title="Xlogmaster Homepage" \
-#		    command="if ps U \$USER | grep -q \$BROWSER; then \$BROWSER -remote \'openURL(%{url})\'; else \$BROWSER \'%{url}\'; fi"
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
+cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}.desktop
+[Desktop Entry]
+Type=Application
+Icon=%{name}
+Categories=System;Monitor;
+Name=Xlogmaster
+Comment=Logfile viewer
 EOF
+
+#cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}.desktop
+#[Desktop Entry]
+#Type=Application
+#Exec=%{name} -terse##
+#Categories=Documentation/Websites#
+#Name=Xlogmaster Homepage#
+#Exec=www-browser %{url}
+#EOF
 
 install -d ${RPM_BUILD_ROOT}{%{_miconsdir},%{_liconsdir}}
 tar -xOjf %{SOURCE2} icons/16x16.png > ${RPM_BUILD_ROOT}%{_miconsdir}/%{name}.png
@@ -89,5 +94,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
 %{_miconsdir}/%{name}.png
-%{_menudir}/%{name}
+%{_datadir}/applications/mandriva-%{name}.desktop
 
