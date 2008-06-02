@@ -32,7 +32,7 @@ anyone.
 %build
 %configure	--with-xlogmaster-home=%{_sysconfdir} \
 		--with-xlogmaster-lib=%{_datadir}/xlogmaster \
-		--with-xlogmaster-db=%{_localstatedir}/xlogmaster \
+		--with-xlogmaster-db=%{_localstatedir}/lib/xlogmaster \
 		--disable-gtkrc
 
 %make
@@ -40,7 +40,7 @@ anyone.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%makeinstall XLM_LIB=%{buildroot}%{_datadir}/xlogmaster XLM_DB=%{buildroot}%{_localstatedir}/xlogmaster
+%makeinstall XLM_LIB=%{buildroot}%{_datadir}/xlogmaster XLM_DB=%{buildroot}%{_localstatedir}/lib/xlogmaster
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
 cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}.desktop
@@ -87,8 +87,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %dir %{_datadir}/xlogmaster
 %{_datadir}/xlogmaster/*
-%dir %{_localstatedir}/xlogmaster
-%{_localstatedir}/xlogmaster/*
+%dir %{_localstatedir}/lib/xlogmaster
+%{_localstatedir}/lib/xlogmaster/*
 %{_mandir}/man1/xlogmaster.1*
 %{_infodir}/xlogmaster.info*
 %{_iconsdir}/%{name}.png
