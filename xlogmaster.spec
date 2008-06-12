@@ -67,7 +67,9 @@ tar -xOjf %{SOURCE2} icons/32x32.png > ${RPM_BUILD_ROOT}%{_iconsdir}/%{name}.png
 tar -xOjf %{SOURCE2} icons/48x48.png > ${RPM_BUILD_ROOT}%{_liconsdir}/%{name}.png
 
 %post
+%if %mdkversion < 200900
 %{update_menus}
+%endif
 %__install_info %{_infodir}/xlogmaster.info.* %{_infodir}/dir
 
 %preun
@@ -75,8 +77,10 @@ if [ $1 = 0 ]; then
     %__install_info --delete %{_infodir}/xlogmaster.info.* %{_infodir}/dir
 fi
 
+%if %mdkversion < 200900
 %postun
 %{clean_menus}
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
