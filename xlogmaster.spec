@@ -1,6 +1,6 @@
 %define name	xlogmaster
 %define version	1.6.0
-%define release	%mkrel 12
+%define release	%mkrel 13
 
 Summary:	Quick & easy monitoring of logfiles and devices
 Name:		%{name}
