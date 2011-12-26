@@ -8,8 +8,7 @@ Name:		%{name}
 Version:	%{version}
 Release:	%{release}
 Source0:	ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.gz
-Source1:	%{name}-%{oversion}-extra.tar.bz2
-Source2:	%{name}-icons.tar.bz2
+Source1:	%{name}-icons.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 BuildRequires:	libgtk+-devel
 License:	GPLv2+
@@ -51,19 +50,10 @@ Name=%{name}
 Comment=Logfile viewer
 EOF
 
-#cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}.desktop
-#[Desktop Entry]
-#Type=Application
-#Exec=%{name} -terse##
-#Categories=Documentation/Websites#
-#Name=Xlogmaster Homepage#
-#Exec=www-browser %{url}
-#EOF
-
 install -d %{buildroot}{%{_miconsdir},%{_liconsdir}}
-tar -xOjf %{SOURCE2} icons/16x16.png > %{buildroot}%{_miconsdir}/%{name}.png
-tar -xOjf %{SOURCE2} icons/32x32.png > %{buildroot}%{_iconsdir}/%{name}.png
-tar -xOjf %{SOURCE2} icons/48x48.png > %{buildroot}%{_liconsdir}/%{name}.png
+tar -xOjf %{SOURCE1} icons/16x16.png > %{buildroot}%{_miconsdir}/%{name}.png
+tar -xOjf %{SOURCE1} icons/32x32.png > %{buildroot}%{_iconsdir}/%{name}.png
+tar -xOjf %{SOURCE1} icons/48x48.png > %{buildroot}%{_liconsdir}/%{name}.png
 
 %post
 %if %mdkversion < 200900
