@@ -1,18 +1,18 @@
 %define name	xlogmaster
-%define version	1.6.0
-%define release	%mkrel 14
+%define oversion	1.6.0
+%define version	1.6.2
+%define release	1
 
 Summary:	Quick & easy monitoring of logfiles and devices
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
-Source0:	ftp://ftp.gnu.org/xlogmaster/%{name}-%{version}.tar.bz2
-Source1:	%{name}-%{version}-extra.tar.bz2
+Source0:	ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.gz
+Source1:	%{name}-%{oversion}-extra.tar.bz2
 Source2:	%{name}-icons.tar.bz2
-Patch0:		%{name}-gcc3.2.fix.patch.bz2
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 BuildRequires:	libgtk+-devel
-License:	GPL
+License:	GPLv2+
 URL:		http://www.gnu.org/software/xlogmaster/
 Group:		Monitoring
 
@@ -27,7 +27,6 @@ anyone.
 
 %setup -q -T -b 0 -n %{name}-%{version}
 %setup -q -T -D -a 1
-%patch0 -p1
 
 %build
 %configure	--with-xlogmaster-home=%{_sysconfdir} \
@@ -38,17 +37,17 @@ anyone.
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-%makeinstall XLM_LIB=%{buildroot}%{_datadir}/xlogmaster XLM_DB=%{buildroot}%{_localstatedir}/lib/xlogmaster
+%makeinstall XLM_LIB=%{buildroot}%{_datadir}/%{name} XLM_DB=%{buildroot}%{_localstatedir}/lib/%{name}
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
-cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}.desktop
+mkdir -p %{buildroot}%{_datadir}/applications/
+cat << EOF > %{buildroot}%{_datadir}/applications/%{name}.desktop
 [Desktop Entry]
 Type=Application
 Icon=%{name}
 Categories=System;Monitor;
-Name=Xlogmaster
+Name=%{name}
 Comment=Logfile viewer
 EOF
 
@@ -61,20 +60,20 @@ EOF
 #Exec=www-browser %{url}
 #EOF
 
-install -d ${RPM_BUILD_ROOT}{%{_miconsdir},%{_liconsdir}}
-tar -xOjf %{SOURCE2} icons/16x16.png > ${RPM_BUILD_ROOT}%{_miconsdir}/%{name}.png
-tar -xOjf %{SOURCE2} icons/32x32.png > ${RPM_BUILD_ROOT}%{_iconsdir}/%{name}.png
-tar -xOjf %{SOURCE2} icons/48x48.png > ${RPM_BUILD_ROOT}%{_liconsdir}/%{name}.png
+install -d %{buildroot}{%{_miconsdir},%{_liconsdir}}
+tar -xOjf %{SOURCE2} icons/16x16.png > %{buildroot}%{_miconsdir}/%{name}.png
+tar -xOjf %{SOURCE2} icons/32x32.png > %{buildroot}%{_iconsdir}/%{name}.png
+tar -xOjf %{SOURCE2} icons/48x48.png > %{buildroot}%{_liconsdir}/%{name}.png
 
 %post
 %if %mdkversion < 200900
 %{update_menus}
 %endif
-%__install_info %{_infodir}/xlogmaster.info.* %{_infodir}/dir
+%__install_info %{_infodir}/%{name}.info.* %{_infodir}/dir
 
 %preun
 if [ $1 = 0 ]; then
-    %__install_info --delete %{_infodir}/xlogmaster.info.* %{_infodir}/dir
+    %__install_info --delete %{_infodir}/%{name}.info.* %{_infodir}/dir
 fi
 
 %if %mdkversion < 200900
@@ -83,20 +82,20 @@ fi
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc COPYING NEWS README TODO doc/old-tutorial.txt.gz %{name}-%{version}-extra/*.html
+%doc NEWS README TODO 
 %{_bindir}/*
-%dir %{_datadir}/xlogmaster
-%{_datadir}/xlogmaster/*
-%dir %{_localstatedir}/lib/xlogmaster
-%{_localstatedir}/lib/xlogmaster/*
-%{_mandir}/man1/xlogmaster.1*
-%{_infodir}/xlogmaster.info*
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/*
+%dir %{_localstatedir}/lib/%{name}
+%{_localstatedir}/lib/%{name}/*
+%{_mandir}/man1/%{name}.1*
+%{_infodir}/%{name}.info*
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
 %{_miconsdir}/%{name}.png
-%{_datadir}/applications/mandriva-%{name}.desktop
+%{_datadir}/applications/%{name}.desktop
 
