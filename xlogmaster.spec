@@ -36,8 +36,6 @@ anyone.
 %make
 
 %install
-rm -rf %{buildroot}
-
 %makeinstall XLM_LIB=%{buildroot}%{_datadir}/%{name} XLM_DB=%{buildroot}%{_localstatedir}/lib/%{name}
 
 mkdir -p %{buildroot}%{_datadir}/applications/
@@ -72,7 +70,6 @@ fi
 %endif
 
 %clean
-rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
