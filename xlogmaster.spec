@@ -1,12 +1,7 @@
-%define name	xlogmaster
-%define oversion	1.6.0
-%define version	1.6.2
-%define release	1
-
 Summary:	Quick & easy monitoring of logfiles and devices
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:		xlogmaster
+Version:	1.6.2
+Release:	1
 Source0:	ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:	%{name}-icons.tar.bz2
 BuildRequires:	libgtk+-devel
@@ -68,4 +63,3 @@ install -m644 icons/48x48.png -D %{buildroot}%{_liconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
 %{_miconsdir}/%{name}.png
 %{_datadir}/applications/%{name}.desktop
-
