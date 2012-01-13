@@ -9,7 +9,6 @@ Version:	%{version}
 Release:	%{release}
 Source0:	ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:	%{name}-icons.tar.bz2
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 BuildRequires:	libgtk+-devel
 License:	GPLv2+
 URL:		http://www.gnu.org/software/xlogmaster/
@@ -58,10 +57,7 @@ if [ $1 = 0 ]; then
     %__install_info --delete %{_infodir}/%{name}.info.* %{_infodir}/dir
 fi
 
-%clean
-
 %files
-%defattr(-,root,root)
 %doc NEWS README TODO 
 %{_bindir}/*
 %dir %{_datadir}/%{name}
