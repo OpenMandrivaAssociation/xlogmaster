@@ -51,20 +51,12 @@ install -m644 icons/32x32.png -D %{buildroot}%{_iconsdir}/%{name}.png
 install -m644 icons/48x48.png -D %{buildroot}%{_liconsdir}/%{name}.png
 
 %post
-%if %mdkversion < 200900
-%{update_menus}
-%endif
 %__install_info %{_infodir}/%{name}.info.* %{_infodir}/dir
 
 %preun
 if [ $1 = 0 ]; then
     %__install_info --delete %{_infodir}/%{name}.info.* %{_infodir}/dir
 fi
-
-%if %mdkversion < 200900
-%postun
-%{clean_menus}
-%endif
 
 %clean
 
