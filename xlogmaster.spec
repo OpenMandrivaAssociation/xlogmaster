@@ -50,12 +50,10 @@ install -m644 icons/32x32.png -D %{buildroot}%{_iconsdir}/%{name}.png
 install -m644 icons/48x48.png -D %{buildroot}%{_liconsdir}/%{name}.png
 
 %post
-%__install_info %{_infodir}/%{name}.info.* %{_infodir}/dir
+%_install_info %{name}.info
 
 %preun
-if [ $1 = 0 ]; then
-    %__install_info --delete %{_infodir}/%{name}.info.* %{_infodir}/dir
-fi
+%_remove_install_info %{name}.info
 
 %files
 %doc NEWS README TODO 
