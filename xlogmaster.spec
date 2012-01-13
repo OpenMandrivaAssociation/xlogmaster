@@ -4,6 +4,7 @@ Version:	1.6.2
 Release:	1
 Source0:	ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:	%{name}-icons.tar.bz2
+Patch0:		xlogmaster-1.6.2-workaround-pointer-to-int-casting.patch
 BuildRequires:	libgtk+-devel
 License:	GPLv2+
 URL:		http://www.gnu.org/software/xlogmaster/
@@ -18,6 +19,7 @@ anyone.
 
 %prep
 %setup -q -a1
+%patch0 -p1 -b .cast~
 
 %build
 %configure	--with-xlogmaster-home=%{_sysconfdir} \
