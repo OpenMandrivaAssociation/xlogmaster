@@ -23,9 +23,7 @@ in the monitored logfiles/devices and should prove very helpful for almost
 anyone.
 
 %prep
-
-%setup -q -T -b 0 -n %{name}-%{version}
-%setup -q -T -D -a 1
+%setup -q -a1
 
 %build
 %configure	--with-xlogmaster-home=%{_sysconfdir} \
@@ -48,10 +46,9 @@ Name=%{name}
 Comment=Logfile viewer
 EOF
 
-install -d %{buildroot}{%{_miconsdir},%{_liconsdir}}
-tar -xOjf %{SOURCE1} icons/16x16.png > %{buildroot}%{_miconsdir}/%{name}.png
-tar -xOjf %{SOURCE1} icons/32x32.png > %{buildroot}%{_iconsdir}/%{name}.png
-tar -xOjf %{SOURCE1} icons/48x48.png > %{buildroot}%{_liconsdir}/%{name}.png
+install -m644 icons/16x16.png -D %{buildroot}%{_miconsdir}/%{name}.png
+install -m644 icons/32x32.png -D %{buildroot}%{_iconsdir}/%{name}.png
+install -m644 icons/48x48.png -D %{buildroot}%{_liconsdir}/%{name}.png
 
 %post
 %if %mdkversion < 200900
