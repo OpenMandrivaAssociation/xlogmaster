@@ -1,0 +1,118 @@
+--- xlogmaster-1.6.2/src/alert.cc.cast~	2012-01-13 14:40:57.046690429 +0100
++++ xlogmaster-1.6.2/src/alert.cc	2012-01-13 14:41:10.121670798 +0100
+@@ -93,7 +93,7 @@ remove_alert(int nr)
+ int 
+ alert_interrupt(gpointer data)
+ { 
+-  int nr = (int) data;
++  int nr = (long int) data;
+   entry[nr]->fade += entry[nr]->fadestep;
+   if ( entry[nr]->fade > fade_base )
+     {
+--- xlogmaster-1.6.2/src/customize.cc.cast~	2012-01-13 14:42:10.767579735 +0100
++++ xlogmaster-1.6.2/src/customize.cc	2012-01-13 14:42:23.292560928 +0100
+@@ -1840,7 +1840,7 @@ accept_filter_values(GtkWidget*, gpointe
+ 
+   gint default_class0_filter = NO_FILTER;
+   if ( data != NULL )
+-    default_class0_filter = (gint) data;
++    default_class0_filter = (long gint) data;
+ 
+   /* block handlers */
+   block_filter_handlers = TRUE;  
+--- xlogmaster-1.6.2/src/output.cc.cast~	2012-01-13 14:44:02.680411691 +0100
++++ xlogmaster-1.6.2/src/output.cc	2012-01-13 14:44:16.122391504 +0100
+@@ -180,7 +180,7 @@ pipe_magic(gint i, gchar* transfer_buffe
+ gint 
+ pipe_magic_interrupt(gpointer data)
+ {
+-  gint i = (gint) data;
++  gint i = (long gint) data;
+   
+   /* are we locked out ? */
+   if ( entry[i]->pipe_lock == TRUE )
+--- xlogmaster-1.6.2/src/watchdog.cc.cast~	2012-01-13 14:42:35.199543049 +0100
++++ xlogmaster-1.6.2/src/watchdog.cc	2012-01-13 14:43:25.310467803 +0100
+@@ -746,7 +746,7 @@ stop_watchdog()
+ gint 
+ watchdog_tail_interrupt(gpointer data)
+ {
+-  gint i = (gint) data;
++  gint i = (long gint) data;
+   if ( entry[i]->active == FALSE ) return TRUE;
+   
+   if ( entry[i]->fd == -1 )
+@@ -886,7 +886,7 @@ watchdog_tail_interrupt(gpointer data)
+ gint 
+ watchdog_run_interrupt(gpointer data)
+ {
+-  int i = (int) data;
++  int i = (long int) data;
+   if ( entry[i]->active == FALSE ) return TRUE;
+ 
+   if ( entry[i]->fd == -1 )
+@@ -997,7 +997,7 @@ watchdog_run_interrupt(gpointer data)
+ gint
+ watchdog_run_restart_interrupt(gpointer data)
+ { 
+-  gint i = (gint) data;
++  gint i = (long gint) data;
+   
+   /* first remove this interrupt */
+   gtk_timeout_remove(entry[i]->tag);
+@@ -1029,7 +1029,7 @@ watchdog_run_restart_interrupt(gpointer
+ gint 
+ watchdog_cat_interrupt(gpointer data)
+ {
+-  int i = (int) data;
++  int i = (long int) data;
+   if ( entry[i]->active == FALSE ) return TRUE;
+   
+   /* we need to open it every time anew for CAT */
+@@ -1575,7 +1575,7 @@ deactivate()
+ gint 
+ tail_interrupt(gpointer data)
+ { 
+-  gint i = (gint) data;
++  gint i = (long gint) data;
+   if ( entry[i]->active == FALSE ) return TRUE;
+   
+   /*
+@@ -1687,7 +1687,7 @@ tail_interrupt(gpointer data)
+ gint 
+ cat_interrupt(gpointer data)
+ {
+-  gint i = (gint) data;
++  gint i = (long gint) data;
+   if ( entry[i]->active == FALSE ) return TRUE;
+   
+   entry[i]->fd = open(entry[i]->filename, O_RDONLY);
+@@ -1716,7 +1716,7 @@ cat_interrupt(gpointer data)
+ gint 
+ run_interrupt(gpointer data)
+ { 
+-  gint i = (gint) data;
++  gint i = (long gint) data;
+   if ( entry[i]->active == FALSE ) return TRUE;
+ 
+   long got = read_from_filedescriptor(i);
+@@ -1778,7 +1778,7 @@ run_interrupt(gpointer data)
+ gint 
+ run_restart_interrupt(gpointer data)
+ { 
+-  gint i = (gint) data;
++  gint i = (long gint) data;
+  
+   /* first remove this interrupt */
+   gtk_timeout_remove(entry[i]->tag);
+--- xlogmaster-1.6.2/src/xlogmaster.cc.cast~	2012-01-13 14:40:38.822717794 +0100
++++ xlogmaster-1.6.2/src/xlogmaster.cc	2012-01-13 14:40:50.289700577 +0100
+@@ -426,7 +426,7 @@ void
+ button_pressed(GtkWidget *, gpointer *data)
+ {
+   if ( display_logs == DISABLED ) return;
+-  int pressed = (int) data;       // Which button has been pressed ?
++  int pressed = (long int) data;       // Which button has been pressed ?
+   deactivate();                        // deactivate old "Log" object
+   active = pressed;                 // set new one
+   activate();                           // and activate it
