@@ -47,8 +47,6 @@ install -m644 icons/32x32.png -D %{buildroot}%{_iconsdir}/%{name}.png
 install -m644 icons/48x48.png -D %{buildroot}%{_liconsdir}/%{name}.png
 
 
-%preun
-%_remove_install_info %{name}.info
 
 %files
 %doc NEWS README TODO 
