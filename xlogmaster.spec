@@ -1,7 +1,7 @@
 Summary:	Quick & easy monitoring of logfiles and devices
 Name:		xlogmaster
 Version:	1.6.2
-Release:	2
+Release:	3
 Source0:	ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:	%{name}-icons.tar.bz2
 Patch0:		xlogmaster-1.6.2-workaround-pointer-to-int-casting.patch
