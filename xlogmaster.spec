@@ -7,7 +7,7 @@ Source1:	%{name}-icons.tar.bz2
 Patch0:		xlogmaster-1.6.2-workaround-pointer-to-int-casting.patch
 BuildRequires:	libgtk+-devel
 License:	GPLv2+
-URL:		http://www.gnu.org/software/xlogmaster/
+URL:		https://www.gnu.org/software/xlogmaster/
 Group:		Monitoring
 
 %description
