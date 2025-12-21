@@ -5,6 +5,11 @@ Release:	4
 Source0:	ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:	%{name}-icons.tar.bz2
 Patch0:		xlogmaster-1.6.2-workaround-pointer-to-int-casting.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	libgtk+-devel
 License:	GPLv2+
 URL:		https://www.gnu.org/software/xlogmaster/
